@@ -1,10 +1,12 @@
 $yysccsid = "@(#)yaccpar 1.8 (Berkeley) 01/20/91 (Perl 2.0 12/31/92)";
 #define YYBYACC 1
 #line 2 "GetDate.y"
-;###############################################################################
-;## Date::GetDate.y
+;##############################################################################
+;## GetDate.y
 ;##
-;## Version 1.00  05-Jan-95  Graham Barr  bodg@tiuk.ti.com
+;## Copyright (c) 1995 Graham Barr <Graham.Barr@tiuk.ti.com>. All rights
+;## reserved. This program is free software; you can redistribute it and/or
+;## modify it under the same terms as Perl itself.
 ;##
 ;## Attempt to parse a date in any given format.
 ;##
@@ -16,9 +18,10 @@ $yysccsid = "@(#)yaccpar 1.8 (Berkeley) 01/20/91 (Perl 2.0 12/31/92)";
 ;##   byacc -P -b strtotime strtotime.y
 ;##   mv strtotime.tab.pl strtotime.pm
 ;##   cat strtotime.y >> strtotime.pm
-;###############################################################################
+;##############################################################################
 
-print $yysccsid if defined $print_yysccsid_string;
+;#print $yysccsid if defined $print_yysccsid_string;
+$yysccsid = $yysccsid; # keep -w quiet
 
 package Date::GetDate;
 
@@ -27,53 +30,65 @@ require 5.000;
 require Exporter;
 @ISA = (Exporter);
 
+$VERSION = sprintf("%d.%02d", q$Revision: 1.2 $ =~ /(\d+)\.(\d+)/);
+sub Version { $VERSION }
+
 @EXPORT = qw( &strtotime );
 
 sub yyerror { $error = 1; }
 
-#line 35 "GetDate.tab.pl"
+#line 41 "GetDate.tab.pl"
 $NUM=257;
 $MONTH=258;
 $AM=259;
 $PM=260;
+$ZONE=261;
 $YYERRCODE=256;
 @yylhs = (                                               -1,
     0,    0,    0,    0,    0,    0,    0,    0,    1,    1,
-    1,    3,    3,    2,    2,    2,    4,    4,
+    1,    1,    1,    3,    3,    3,    2,    2,    2,    2,
+    2,    5,    5,    5,    4,    4,
 );
 @yylen = (                                                2,
-    3,    3,    3,    2,    2,    2,    1,    1,    2,    2,
-    3,    2,    1,    2,    2,    1,    5,    3,
+    3,    3,    3,    2,    2,    2,    1,    1,    2,    3,
+    2,    3,    3,    2,    2,    1,    2,    2,    1,    2,
+    2,    2,    2,    1,    5,    3,
 );
 @yydefred = (                                             0,
-    0,    0,    0,    0,    0,    0,    9,    0,    0,   10,
-    0,    0,    0,    0,    0,    0,   14,   15,   11,    0,
-   12,   13,    1,    0,    2,    3,    0,   17,
+    0,    0,    0,    0,    0,    0,    0,    9,    0,    0,
+    0,   11,    0,   20,    0,    0,    0,    0,    0,    0,
+   24,    0,    0,    0,   21,   17,   18,   12,   10,   13,
+    0,   14,   15,   16,    0,    1,    0,   23,   22,    3,
+    0,    0,   25,
 );
-@yydgoto = (                                              3,
-    4,    5,   14,    6,
+@yydgoto = (                                              4,
+    5,    6,   19,    7,   25,
 );
-@yysindex = (                                          -243,
-  -47, -249,    0,  -43, -241, -240,    0, -247, -239,    0,
-  -37, -235,  -41, -234,  -45,  -41,    0,    0,    0,  -34,
-    0,    0,    0,  -37,    0,    0, -232,    0,
+@yysindex = (                                           -54,
+  -34, -230, -224,    0,  -28,  -43, -234,    0, -226, -235,
+ -223,    0,  -23,    0,  -23, -221, -220,  -40,  -37,  -31,
+    0, -219, -218,  -27,    0,    0,    0,    0,    0,    0,
+  -18,    0,    0,    0, -216,    0,  -33,    0,    0,    0,
+ -215,    0,    0,
 );
 @yyrindex = (                                             0,
-    0,    0,    0,   26,   27,    5,    0,    0,    0,    0,
-    7,    0,   28,   29,    0,   30,    0,    0,    0,    1,
-    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,   43,   45,    6,    0,    0,    0,
+    0,    0,    0,    0,    8,    0,    0,   47,   50,    0,
+    0,    0,    0,   55,    0,    0,    0,    0,    0,    0,
+    1,    0,    0,    0,    0,    0,   57,    0,    0,    0,
+    0,    9,    0,
 );
 @yygindex = (                                             0,
-   31,   -1,   -4,    0,
+   52,   10,    4,   56,    0,
 );
-$YYTABLESIZE=264;
-@yytable = (                                              8,
-   18,    8,   13,   12,   16,   12,   13,   10,   23,   19,
-    9,   26,   25,    1,    2,   15,    2,   20,   17,   18,
-    9,   21,   24,   27,   28,    7,    8,    5,    6,    4,
-    0,    0,    0,    0,    0,   16,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,   18,    0,    0,
-    0,   16,    0,    0,    0,    0,    0,    0,    0,    0,
+$YYTABLESIZE=270;
+@yytable = (                                             23,
+   26,   22,   23,    3,   35,   19,   16,   16,   15,   23,
+   10,   22,    9,   10,   18,    9,   17,   17,   16,   16,
+    3,   36,   30,   11,   26,   27,   12,   40,   37,    3,
+   28,   29,   13,   31,   11,   32,   33,   38,   39,   41,
+   42,   43,    7,   26,    8,   26,    5,   26,   19,    6,
+   19,   23,   19,   23,    4,   23,    2,   24,   14,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -88,21 +103,21 @@ $YYTABLESIZE=264;
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    1,    2,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,   20,    2,    0,   34,   21,    0,   13,
+   21,    0,    0,    8,    0,    0,    8,   21,   15,   34,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    7,    0,    7,   11,    0,   22,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,   18,   18,   18,
-   18,   16,   16,   13,
+    0,    0,    0,    0,    0,    0,    0,   26,   26,   26,
+   26,   26,   19,   19,   16,   23,   19,    0,    0,   23,
 );
-@yycheck = (                                             47,
-    0,   47,    4,   47,    0,   47,    0,  257,   13,  257,
-   58,   16,   14,  257,  258,  257,  258,  257,  259,  260,
-   58,  257,  257,   58,  257,    0,    0,    0,    0,    0,
-   -1,   -1,   -1,   -1,   -1,    5,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   47,   -1,   -1,
-   -1,   47,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+@yycheck = (                                             43,
+    0,   45,   43,   58,   45,    0,   47,    0,    0,   43,
+   45,   45,   47,   45,    5,   47,   45,   45,   47,   47,
+   58,   18,  258,   58,  259,  260,  257,   24,   19,   58,
+  257,  258,  257,  257,   58,  257,  257,  257,  257,   58,
+  257,  257,    0,   43,    0,   45,    0,   47,   43,    0,
+   45,   43,   47,   45,    0,   47,    0,    6,    3,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -117,28 +132,29 @@ $YYTABLESIZE=264;
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-  258,   -1,  258,  257,   -1,  257,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,  257,  258,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,  257,  258,   -1,  257,  261,   -1,  257,
+  261,   -1,   -1,  258,   -1,   -1,  258,  261,  257,  257,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,  257,  258,  259,
-  260,  257,  258,  257,
+  260,  261,  257,  258,  257,  257,  261,   -1,   -1,  261,
 );
-$YYFINAL=3;
+$YYFINAL=4;
 #ifndef YYDEBUG
 #define YYDEBUG 0
 #endif
-$YYMAXTOKEN=260;
+$YYMAXTOKEN=261;
 #if YYDEBUG
 @yyname = (
 "end-of-file",'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
-'','','','','','','','','','','','','',"'/'",'','','','','','','','','','',"':'",'','','','','','','','','','','',
+'','','','','','','','','',"'+'",'',"'-'",'',"'/'",'','','','','','','','','','',"':'",'','','','','','','',
 '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
 '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
 '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
 '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
-'','','','','','','','','','','','','','','','','','','','','','','','','','','',"NUM","MONTH","AM","PM",
+'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',"NUM","MONTH",
+"AM","PM","ZONE",
 );
 @yyrule = (
 "\$accept : date",
@@ -151,13 +167,21 @@ $YYMAXTOKEN=260;
 "date : day",
 "date : time",
 "day : NUM MONTH",
+"day : NUM '/' MONTH",
 "day : MONTH NUM",
 "day : NUM '/' NUM",
+"day : NUM '-' MONTH",
 "year : '/' NUM",
+"year : '-' NUM",
 "year : NUM",
 "time : clock AM",
 "time : clock PM",
 "time : clock",
+"time : ':' clock",
+"time : time zone",
+"zone : '+' NUM",
+"zone : '-' NUM",
+"zone : ZONE",
 "clock : NUM ':' NUM ':' NUM",
 "clock : NUM ':' NUM",
 );
@@ -287,51 +311,76 @@ yyloop: while(1)
     switch:
     {
 if ($yyn == 9) {
-#line 48 "GetDate.y"
+#line 54 "GetDate.y"
 { $month = $yyvs[$yyvsp-0] % 12; $day = $yyvs[$yyvsp-1]; 
 last switch;
 } }
 if ($yyn == 10) {
-#line 49 "GetDate.y"
-{ $month = $yyvs[$yyvsp-1] % 12; $day = $yyvs[$yyvsp-0]; 
+#line 55 "GetDate.y"
+{ $month = $yyvs[$yyvsp-0] % 12; $day = $yyvs[$yyvsp-2]; 
 last switch;
 } }
 if ($yyn == 11) {
-#line 50 "GetDate.y"
-{ $month = $yyvs[$yyvsp-2] % 12; $day = $yyvs[$yyvsp-0]; 
+#line 56 "GetDate.y"
+{ $month = $yyvs[$yyvsp-1] % 12; $day = $yyvs[$yyvsp-0]; 
 last switch;
 } }
 if ($yyn == 12) {
-#line 53 "GetDate.y"
-{ $year = $yyvs[$yyvsp-0] % 100; 
+#line 57 "GetDate.y"
+{ $month = $yyvs[$yyvsp-2] % 12; $day = $yyvs[$yyvsp-0]; 
 last switch;
 } }
 if ($yyn == 13) {
-#line 54 "GetDate.y"
-{ $year = $yyvs[$yyvsp-0] % 100; 
+#line 58 "GetDate.y"
+{ $month = $yyvs[$yyvsp-0] % 12; $day = $yyvs[$yyvsp-2]; 
 last switch;
 } }
 if ($yyn == 14) {
-#line 57 "GetDate.y"
-{ $hour %= 12; 
+#line 61 "GetDate.y"
+{ $year = $yyvs[$yyvsp-0] % 100; 
 last switch;
 } }
 if ($yyn == 15) {
-#line 58 "GetDate.y"
-{ $hour  = ($hour % 12) + 12; 
+#line 62 "GetDate.y"
+{ $year = $yyvs[$yyvsp-0] % 100; 
+last switch;
+} }
+if ($yyn == 16) {
+#line 63 "GetDate.y"
+{ $year = $yyvs[$yyvsp-0] % 100; 
 last switch;
 } }
 if ($yyn == 17) {
-#line 62 "GetDate.y"
-{ $hour = $yyvs[$yyvsp-4] % 24; $min = $yyvs[$yyvsp-2] % 60; $sec = $yyvs[$yyvsp-0] % 60; 
+#line 66 "GetDate.y"
+{ $hour %= 12; 
 last switch;
 } }
 if ($yyn == 18) {
-#line 63 "GetDate.y"
+#line 67 "GetDate.y"
+{ $hour  = ($hour % 12) + 12; 
+last switch;
+} }
+if ($yyn == 22) {
+#line 73 "GetDate.y"
+{ $delta =  (($yyvs[$yyvsp-0]/100)*60 + $yyvs[$yyvsp-0] % 100); 
+last switch;
+} }
+if ($yyn == 23) {
+#line 74 "GetDate.y"
+{ $delta = -(($yyvs[$yyvsp-0]/100)*60 + $yyvs[$yyvsp-0] % 100); 
+last switch;
+} }
+if ($yyn == 25) {
+#line 78 "GetDate.y"
+{ $hour = $yyvs[$yyvsp-4] % 24; $min = $yyvs[$yyvsp-2] % 60; $sec = $yyvs[$yyvsp-0] % 60; 
+last switch;
+} }
+if ($yyn == 26) {
+#line 79 "GetDate.y"
 { $hour = $yyvs[$yyvsp-2] % 24; $min = $yyvs[$yyvsp-0] % 60; 
 last switch;
 } }
-#line 335 "GetDate.tab.pl"
+#line 384 "GetDate.tab.pl"
     } # switch
     $yyssp -= $yym;
     $yystate = $yyss[$yyssp];
@@ -377,7 +426,7 @@ last switch;
     $yyvs[++$yyvsp] = $yyval;
   } # yyloop
 } # yyparse
-#line 67 "GetDate.y"
+#line 83 "GetDate.y"
 
 sub numqw { local($i,@me,$_); $i = shift @_; foreach (@_) {push @me,$_,$i++} @me  }
 
@@ -397,12 +446,11 @@ YYLEX: while($string ne '')
      $yylval = $1;
      return $NUM;
     }
-   elsif($string =~ s/\A\s*([\-\+](\d)?\d)(\d\d)\s*//)
-    {
-     $delta -= ($1 * 60) + $3 unless $delta;
-
-     next YYLEX;
-    }
+#  elsif($string =~ s/\A\s*([\-\+](\d)?\d)(\d\d)\s*// && $1 >= -12 && $1 <= 12)
+#   {
+#    $delta -= ($1 * 60) + $3 unless $delta;
+#    next YYLEX;
+#   }
    elsif($string =~ s/\A\s*([a-z]+)\s*//i)
     {
      local $mon = $1;
@@ -418,15 +466,14 @@ YYLEX: while($string ne '')
      foreach $key (keys %zone)
       {
        next unless($mon =~ /\A$key/);
-
-       $delta -= $zone{$key} unless $delta;
-       next YYLEX;
+       $yyval = $delta = $zone{$key} unless $delta;
+       return $ZONE;
       }
 
      return $PM if $mon =~ /^p\.?m\.?$/;
      return $AM if $mon =~ /^a\.?m\.?$/;
     }
-   elsif($string =~ s/\A\s*([:\/])\s*//)
+   elsif($string =~ s/\A\s*([:\-\+\/])\s*//)
     {
      return ord($1);
     }
@@ -454,11 +501,11 @@ sub strtotime
 
  $time = timegm($sec,$min,$hour,$day,$month,$year);
 
- $time += ($delta * 60);
+ $time -= ($delta * 60);
 
  return $time;
 }
 
 __END__
 
-#line 465 "GetDate.tab.pl"
+#line 512 "GetDate.tab.pl"

@@ -1,6 +1,6 @@
 #
 # Modified from ctimp.pl
-# All Modificationc (c) Copyright Graham Barr <bodg@tiuk.ti.com>
+# All Modifications (c) Copyright Graham Barr <Graham.Barr@tiuk.ti.com>
 #
 # Changed package name to Date::CTime
 # Allowed timezone to be passed in as second arg
@@ -12,7 +12,7 @@
 # Waldemar Kebsch, Federal Republic of Germany, November 1988
 # kebsch.pad@nixpbe.UUCP
 # Modified March 1990, Feb 1991 to properly handle timezones
-#  $RCSfile: ctime.pl,v $$Revision: 4.1 $$Date: 92/08/07 18:23:47 $
+#  $RCSfile: CTime.pm,v $$Revision: 1.1 $$Date: 1995/02/08 10:12:58 $
 #   Marion Hakanson (hakanson@cse.ogi.edu)
 #   Oregon Graduate Institute of Science and Technology
 #
@@ -26,6 +26,9 @@ package Date::CTime;
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT = qw( ctime );
+
+$VERSION = sprintf("%d.%02d", q$Revision: 1.1 $ =~ /(\d+)\.(\d+)/);
+sub Version { $VERSION }
 
 BEGIN {
     @DoW = ('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
@@ -54,6 +57,7 @@ sub ctime {
     if($TZ ne 'GMT' && $isdst != (localtime(time))[8])
      {
       local($gsec, $gmin, $ghour, $gmday, $gmon, $gyear, $gwday, $gyday) = gmtime($time);
+      $gsec = $gsec; $gmon = $gmon; $gmday = $gmday; $gwday = $gwday; # keep -w quiet
       local($l) = (($year * 365 + $yday) * 24 + $hour) * 60 + $min;
       local($g) = (($gyear * 365 + $gyday) * 24 + $ghour) * 60 + $gmin;
       local($d) = $l - $g;

@@ -1,37 +1,9 @@
-#!/usr/local/bin/perl5
+#!/usr/local/bin/perl -w
 
 use Date::GetDate;
 use Date::CTime;
 
-$verbose = @ARGV;
-$errors = 0;
-
-while(<DATA>)
-{
- chomp;
- last unless /\S/;
-
- $time = strtotime($_);
-
- chomp($x = ctime($time,'GMT'));
-
- printf "%-40s\t%s\n", $_,$x,"\n" if($verbose);
-
- $y = strtotime($x);
-
- if($y != $time)
-  {
-   chomp($z = ctime($y,'GMT'));
-   printf "%-40s\t%s\n", $_,$x,"\n";
-   warn "Dates not the same '$x' '".$z."'\n" ;
-   $errors++;
-  }
-}
-warn "\nThere were $errors error(s)\n" if($errors);
-print "\nAll tests passed !!!\n" unless($errors);
-
-__END__
-Wed, 16 Jun 94 07:29:35 CST 
+$data = qq!Wed, 16 Jun 94 07:29:35 CST 
 Wed, 16 Nov 94 07:29:35 CST 
 Mon, 21 Nov 94 07:42:23 CST 
 Mon, 21 Nov 94 04:28:18 CST 
@@ -148,4 +120,25 @@ Tue, 01 Nov 1994 11:28:25 -0800
 Tue, 15 Nov 1994 13:11:47 -0800 
 Tue, 15 Nov 1994 13:18:38 -0800 
 Tue, 15 Nov 1994 0:18:38 -0800 
+!;
+
+@data = split(/\n/, $data);
+
+print "1..", scalar(@data),"\n";
+$loop = 1;
+
+foreach (@data)
+{
+ $time = strtotime($_);
+
+ chomp($x = ctime($time,'GMT'));
+
+ printf "%-40s\t%s\n", $_,$x,"\n";
+
+ $y = strtotime($x);
+
+ print "",($y == $time && $loop != 10) ? "ok $loop\n" : "FAIL $loop\n";
+
+ $loop++;
+}
 
