@@ -1,0 +1,8 @@
+To convert getdate.y into getdate.c, you must not 
+only run something yaccish on it, you must also 
+s/yy/THISyy/g due to conflict problems with 
+perl's own yacc grammar.
+
+Tom Christiansen
+tchrist@perl.com
+Wed Nov  9 09:48:32 MST 1994

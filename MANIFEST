@@ -1,6 +1,11 @@
-CTime.pm			(v1.01) 
-GetDate.pm			(v1.02) 
-GetDate.y
 MANIFEST
+README
+GetDate.xs
+getdates.bench
+GetDate.pm
 Makefile.PL
-t/date.t
+typemap
+getdate.c
+getdate.pl
+orig-getdate.y
+t/getdate.t

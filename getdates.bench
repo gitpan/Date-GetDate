@@ -1,0 +1,14 @@
+use Benchmark;
+use GetDate;
+
+require './getdate.pl';
+
+timethese 1_000 => {
+    "C"		=> 	q{
+	$now = getdate("Tue Jun 28 21:58:59 CDT 1991");
+    },
+    "Perl"	=> 	q{
+	$now = pgetdate("Tue Jun 28 21:58:59 CDT 1991");
+    }
+} 
+
