@@ -150,7 +150,7 @@ static int yyerror ();
 
 #if	!defined(lint) && !defined(SABER)
 static char RCS[] =
-	"$Header: str2date.y,v 2.1 90/09/06 08:15:06 cronan Exp $";
+	"$Header: /usr/home/k/sources/Date-GetDate-2.00-ak/orig-getdate.y,v 1.1 1998/07/12 14:46:17 k Exp $";
 #endif	/* !defined(lint) && !defined(SABER) */
 
 

@@ -9,7 +9,10 @@ typedef struct timeb TimeB;
 
 MODULE = Date::GetDate	PACKAGE = Date::GetDate
 
+PROTOTYPES: ENABLE
+
 int
 salz_getdate(datestr, now=0)
     char *		datestr
     TimeB *		now
+    PROTOTYPE: $;$

@@ -1,4 +1,4 @@
-*** Version 2.01: CPAN Emergency Release ***
+*** Version 2.02: CPAN Emergency Release ***
 
 Tom Christiansen has passed the pumpking for Date::GetDate over to me
 to make a Y2K emergency release.
@@ -11,7 +11,10 @@ This release doesn't try to solve the problem, instead it provides a
 workaround that uses Date::Parse::str2time as a fallback function for
 any illegal date that is encountered.
 
-The module emits a warning at startup to switch to Date::Parse.
+The module emits a warning at startup if Date::Parse isn't available,
+and it dies for dates >= 2000 if Date::Parse isn't available. As the
+test case contains a date beyond, they cannot be completed without
+Date::Parse.
 
 Unless a volunteer shows up who fixes the bug completely, this module
 should be regarded as deprecated. Please replace Date::GetDate with
